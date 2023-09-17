@@ -1,0 +1,73 @@
+package br.com.pefisa.banking.pagamentos.agendador.domain;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@ToString
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "BKG_PGS_LINHA_ARQUIVO", schema = "pnb_matera")
+public class LinhaArquivo implements Serializable {
+
+	private static final long serialVersionUID = 1007402947015990547L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_linha_arquivo")
+	private Long id;
+
+	@Column(name = "nr_agencia")
+	private Integer numeroAgencia;
+
+	@Column(name = "nr_conta")
+	private Long numeroConta;
+
+	@Column(name = "dt_lancamento")
+	private LocalDate dataLancamento;
+
+	@Column(name = "vl_lancamento")
+	private BigDecimal valorLancamento;
+
+	@Column(name = "nr_inscricao_beneficiario")
+	private String numeroInscricaoBeneficiario;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_lote_entrada")
+	private LoteEntrada loteEntrada;
+
+	@Column(name = "dt_pagamento")
+	private LocalDate dataPagamento;
+
+	@Column(name = "dt_processamento")
+	private LocalDate dataProcessamento;
+
+	@Column(name = "in_processado")
+	private Integer processado;
+
+	@Column(name = "tx_linha")
+	private String textoLinha;
+
+	@Column(name = "id_codigo_convenio")
+	private Long idCodigoConvenio;
+
+}
